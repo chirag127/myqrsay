@@ -19,11 +19,11 @@ import ProfileScreen from '../screens/profile/ProfileScreen';
 import AddressesScreen from '../screens/profile/AddressesScreen';
 import AdminDashboardScreen from '../screens/admin/AdminDashboardScreen';
 import DishManagementScreen from '../screens/admin/DishManagementScreen';
-import AddEditDishScreen from '../screens/admin/AddEditDishScreen';
-import OrderManagementScreen from '../screens/admin/OrderManagementScreen';
-import PromoCodeManagementScreen from '../screens/admin/PromoCodeManagementScreen';
-import AddEditPromoCodeScreen from '../screens/admin/AddEditPromoCodeScreen';
-import QRCodeScannerScreen from '../screens/menu/QRCodeScannerScreen';
+// import AddEditDishScreen from '../screens/admin/AddEditDishScreen';
+// import OrderManagementScreen from '../screens/admin/OrderManagementScreen';
+// import PromoCodeManagementScreen from '../screens/admin/PromoCodeManagementScreen';
+// import AddEditPromoCodeScreen from '../screens/admin/AddEditPromoCodeScreen';
+// import QRCodeScannerScreen from '../screens/menu/QRCodeScannerScreen';
 
 // Create navigators
 const Stack = createStackNavigator();
@@ -70,7 +70,7 @@ const AdminStackNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} options={{ title: 'Admin Dashboard' }} />
     <Stack.Screen name="DishManagement" component={DishManagementScreen} options={{ title: 'Dish Management' }} />
-    <Stack.Screen name="AddEditDish" component={AddEditDishScreen} options={({ route }) => ({
+    {/* <Stack.Screen name="AddEditDish" component={AddEditDishScreen} options={({ route }) => ({
       title: route.params?.dish ? 'Edit Dish' : 'Add Dish'
     })} />
     <Stack.Screen name="OrderManagement" component={OrderManagementScreen} options={{ title: 'Order Management' }} />
@@ -78,7 +78,7 @@ const AdminStackNavigator = () => (
     <Stack.Screen name="PromoCodeManagement" component={PromoCodeManagementScreen} options={{ title: 'Promo Codes' }} />
     <Stack.Screen name="AddEditPromoCode" component={AddEditPromoCodeScreen} options={({ route }) => ({
       title: route.params?.promoCode ? 'Edit Promo Code' : 'Add Promo Code'
-    })} />
+    })} /> */}
   </Stack.Navigator>
 );
 
