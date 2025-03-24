@@ -29,6 +29,8 @@ import { UserFormComponent } from './components/admin/user-form/user-form.compon
 import { OrderManagementComponent } from './components/admin/order-management/order-management.component';
 import { KitchenDisplayComponent } from './components/admin/kitchen-display/kitchen-display.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { TestComponent } from './components/test/test.component';
+import { MaterialTestComponent } from './components/test/material-test.component';
 
 // Guards
 import { AuthGuard } from './guards/auth.guard';
@@ -50,6 +52,8 @@ const routes: Routes = [
   { path: 'orders', component: OrderListComponent, canActivate: [AuthGuard] },
   { path: 'orders/:id', component: OrderDetailComponent, canActivate: [AuthGuard] },
   { path: 'qr/:restaurantId', component: QrCodeComponent },
+  { path: 'test', component: TestComponent },
+  { path: 'material-test', component: MaterialTestComponent },
 
   // Admin routes
   {

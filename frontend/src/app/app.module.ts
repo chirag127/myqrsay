@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -35,6 +35,10 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -72,6 +76,7 @@ import { KitchenDisplayComponent } from './components/admin/kitchen-display/kitc
 import { PrintReceiptComponent } from './components/print/print-receipt/print-receipt.component';
 import { PrintKotComponent } from './components/print/print-kot/print-kot.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { TestComponent } from './components/test/test.component';
 
 // Services
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -123,7 +128,8 @@ const socketIoConfig: SocketIoConfig = {
     KitchenDisplayComponent,
     PrintReceiptComponent,
     PrintKotComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -165,13 +171,18 @@ const socketIoConfig: SocketIoConfig = {
     MatBadgeModule,
     MatMenuModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatAutocompleteModule,
+    MatStepperModule,
+    MatGridListModule,
+    MatDividerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

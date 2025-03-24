@@ -1,0 +1,36 @@
+<div class="container">
+    <h1>{{ isEditMode ? 'Edit' : 'Create' }} Promo Code</h1>
+
+    <div *ngIf="loading">Loading...</div>
+
+    <form [formGroup]="promoForm" *ngIf="!loading">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Basic Information</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="form-row">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Promo Code</mat-label>
+                        <input matInput formControlName="code">
+                    </mat-form-field>
+                    <button mat-button (click)="generateRandomCode()">Generate</button>
+                </div>
+
+                <div class="form-row">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput formControlName="description"></textarea>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <div class="form-actions">
+            <button mat-raised-button color="primary" (click)="onSubmit()">
+                {{ isEditMode ? 'Update' : 'Save' }}
+            </button>
+            <a mat-button routerLink="/admin/promo-codes">Cancel</a>
+        </div>
+    </form>
+</div>
