@@ -1,0 +1,213 @@
+<div class="container">
+    <div class="page-header">
+        <h1>Your Cart</h1>
+        <div class="action-buttons">
+            <button mat-raised-button color="primary" (click)="continueShopping()">
+                <mat-icon>shopping_bag</mat-icon> Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="loading-spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+        {{ error }}
+    </div>
+
+    <div *ngIf="!loading && !error" class="cart-container">
+        <div *ngIf="!cart || cart.items.length === 0" class="empty-cart">
+            <mat-card>
+                <mat-card-content>
+                    <div class="empty-cart-content">
+                        <mat-icon>shopping_cart</mat-icon>
+                        <h2>Your cart is empty</h2>
+                        <p>Add items to your cart to continue</p>
+                        <button mat-raised-button color="primary" (click)="continueShopping()">Browse Menu</button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div *ngIf="cart && cart.items.length > 0" class="cart-content">
+            <div class="cart-main">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Cart Items</mat-card-title>
+                        <span class="spacer"></span>
+                        <button mat-button color="warn" (click)="clearCart()">
+                            <mat-icon>delete</mat-icon> Clear Cart
+                        </button>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="cart-items">
+                            <div *ngFor="let item of cart.items; let i = index" class="cart-item">
+                                <div class="item-details">
+                                    <h3>{{ item.menuItem && typeof item.menuItem !== 'string' ? item.menuItem.name :
+                                        'Menu Item' }}</h3>
+                                    <p *ngIf="item.variant && typeof item.variant !== 'string'">
+                                        Variant: {{ item.variant.name }}
+                                    </p>
+                                    <div *ngIf="item.addons && item.addons.length > 0" class="item-addons">
+                                        <p>Add-ons:</p>
+                                        <ul>
+                                            <li *ngFor="let addon of item.addons">
+                                                {{ addon.option && typeof addon.option !== 'string' ? addon.option.name
+                                                : 'Option' }}
+                                                <span *ngIf="addon.option && typeof addon.option !== 'string'">
+                                                    (+${{ addon.option.price.toFixed(2) }})
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <p *ngIf="item.specialInstructions" class="item-instructions">
+                                        <em>{{ item.specialInstructions }}</em>
+                                    </p>
+                                </div>
+                                <div class="item-price">
+                                    <div class="quantity-controls">
+                                        <button mat-icon-button color="primary"
+                                            (click)="updateCartItemQuantity(i, item.quantity - 1)"
+                                            [disabled]="item.quantity <= 1">
+                                            <mat-icon>remove</mat-icon>
+                                        </button>
+                                        <span class="quantity">{{ item.quantity }}</span>
+                                        <button mat-icon-button color="primary"
+                                            (click)="updateCartItemQuantity(i, item.quantity + 1)">
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="price">
+                                        {{ (item.menuItem && typeof item.menuItem !== 'string' ? item.menuItem.price *
+                                        item.quantity : 0) | currency }}
+                                    </div>
+                                    <button mat-icon-button color="warn" (click)="removeCartItem(i)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Order Type</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form [formGroup]="orderTypeForm">
+                            <mat-radio-group formControlName="orderType" class="order-type-group">
+                                <mat-radio-button *ngFor="let type of orderTypes" [value]="type.value">
+                                    {{ type.label }}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Special Instructions</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form [formGroup]="specialInstructionsForm">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Special Instructions</mat-label>
+                                <textarea matInput formControlName="instructions" rows="3"
+                                    placeholder="Any special instructions for your order?"></textarea>
+                            </mat-form-field>
+                            <button mat-button color="primary" (click)="updateSpecialInstructions()">
+                                <mat-icon>save</mat-icon> Save Instructions
+                            </button>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+
+            <div class="cart-summary">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Order Summary</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>{{ subtotal | currency }}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax</span>
+                            <span>{{ tax | currency }}</span>
+                        </div>
+                        <div *ngIf="deliveryFee > 0" class="summary-row">
+                            <span>Delivery Fee</span>
+                            <span>{{ deliveryFee | currency }}</span>
+                        </div>
+                        <div *ngIf="discount > 0" class="summary-row discount">
+                            <span>Discount</span>
+                            <span>-{{ discount | currency }}</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>{{ total | currency }}</span>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-raised-button color="primary" class="checkout-button" (click)="proceedToCheckout()">
+                            <mat-icon>payment</mat-icon> Proceed to Checkout
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Promo Code</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form [formGroup]="promoCodeForm">
+                            <div class="promo-code-form">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Enter Promo Code</mat-label>
+                                    <input matInput formControlName="code" [disabled]="promoCodeApplied">
+                                </mat-form-field>
+                                <button *ngIf="!promoCodeApplied" mat-raised-button color="accent"
+                                    [disabled]="promoCodeForm.invalid || loadingPromo" (click)="applyPromoCode()">
+                                    <mat-icon>local_offer</mat-icon> Apply
+                                </button>
+                                <button *ngIf="promoCodeApplied" mat-raised-button color="warn"
+                                    (click)="removePromoCode()">
+                                    <mat-icon>close</mat-icon> Remove
+                                </button>
+                            </div>
+                        </form>
+                        <div *ngIf="loadingPromo" class="promo-loading">
+                            <mat-spinner diameter="20"></mat-spinner>
+                            <span>Validating promo code...</span>
+                        </div>
+                        <div *ngIf="promoCodeError" class="promo-error">
+                            {{ promoCodeError }}
+                        </div>
+                        <div *ngIf="promoCodeApplied && discount > 0" class="promo-success">
+                            Promo code applied! You saved {{ discount | currency }}
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-card *ngIf="!isLoggedIn">
+                    <mat-card-content>
+                        <div class="login-prompt">
+                            <p>Please log in to complete your order</p>
+                            <a mat-raised-button color="primary" [routerLink]="['/login']"
+                                [queryParams]="{returnUrl: '/checkout'}">
+                                <mat-icon>login</mat-icon> Login
+                            </a>
+                            <a mat-button [routerLink]="['/register']" [queryParams]="{returnUrl: '/checkout'}">
+                                Create Account
+                            </a>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
