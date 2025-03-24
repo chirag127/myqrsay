@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Camera } from 'expo-camera';
+// import { Camera } from 'expo-camera';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Button, Snackbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -15,12 +15,12 @@ const QRCodeScannerScreen = () => {
   const [loading, setLoading] = useState(false);
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
+  const [flashMode, setFlashMode] = useState(false);
 
   // Request camera permission
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
   }, []);
@@ -64,11 +64,7 @@ const QRCodeScannerScreen = () => {
 
   // Toggle flash
   const toggleFlash = () => {
-    setFlashMode(
-      flashMode === Camera.Constants.FlashMode.off
-        ? Camera.Constants.FlashMode.torch
-        : Camera.Constants.FlashMode.off
-    );
+    setFlashMode(!flashMode);
   };
 
   // If permission is null, we're still waiting
@@ -95,13 +91,10 @@ const QRCodeScannerScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Camera
+      <BarCodeScanner
         style={styles.camera}
-        type={Camera.Constants.Type.back}
-        flashMode={flashMode}
-        barCodeScannerSettings={{
-          barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
-        }}
+        type={BarCodeScanner.Constants.Type.back}
+        barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
       >
         <View style={styles.overlay}>
@@ -118,7 +111,7 @@ const QRCodeScannerScreen = () => {
               onPress={toggleFlash}
             >
               <Ionicons
-                name={flashMode === Camera.Constants.FlashMode.off ? "flash-off" : "flash"}
+                name={flashMode ? "flash" : "flash-off"}
                 size={24}
                 color="#fff"
               />
@@ -146,7 +139,7 @@ const QRCodeScannerScreen = () => {
             </Button>
           )}
         </View>
-      </Camera>
+      </BarCodeScanner>
 
       {loading && <LoadingIndicator fullScreen text="Processing QR code..." />}
 

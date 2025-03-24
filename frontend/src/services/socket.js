@@ -14,7 +14,8 @@ export const connectSocket = async () => {
     }
 
     // Create socket connection
-    socket = io('http://localhost:3000', {
+    // Use the same port as your backend server
+    socket = io(process.env.REACT_APP_API_URL || 'http://localhost:3000', {
       auth: {
         token
       }

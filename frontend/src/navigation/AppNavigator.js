@@ -23,7 +23,7 @@ import DishManagementScreen from '../screens/admin/DishManagementScreen';
 // import OrderManagementScreen from '../screens/admin/OrderManagementScreen';
 // import PromoCodeManagementScreen from '../screens/admin/PromoCodeManagementScreen';
 // import AddEditPromoCodeScreen from '../screens/admin/AddEditPromoCodeScreen';
-// import QRCodeScannerScreen from '../screens/menu/QRCodeScannerScreen';
+import QRCodeScannerScreen from '../screens/menu/QRCodeScannerScreen';
 
 // Create navigators
 const Stack = createStackNavigator();
