@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <a routerLink="/" class="logo">
+    <span>Digital Menu</span>
+  </a>
+
+  <span class="spacer"></span>
+
+  <div class="nav-links">
+    <a mat-button routerLink="/restaurants">Restaurants</a>
+
+    <ng-container *ngIf="isLoggedIn">
+      <a mat-button routerLink="/orders">My Orders</a>
+      <a mat-button routerLink="/profile">Profile</a>
+
+      <ng-container *ngIf="isAdmin">
+        <a mat-button routerLink="/admin">Admin</a>
+      </ng-container>
+
+      <button mat-button (click)="logout()">Logout</button>
+    </ng-container>
+
+    <ng-container *ngIf="!isLoggedIn">
+      <a mat-button routerLink="/login">Login</a>
+      <a mat-button routerLink="/register">Register</a>
+    </ng-container>
+
+    <a mat-icon-button routerLink="/cart" [matBadge]="cartItemCount" [matBadgeHidden]="cartItemCount === 0" matBadgeColor="accent">
+      <mat-icon>shopping_cart</mat-icon>
+    </a>
+  </div>
+</mat-toolbar>

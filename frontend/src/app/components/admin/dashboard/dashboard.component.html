@@ -1,0 +1,229 @@
+<div class="dashboard-container">
+    <h1 class="page-title">Dashboard</h1>
+
+    <div *ngIf="loading" class="loading-spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+        {{ error }}
+    </div>
+
+    <div *ngIf="!loading && !error">
+        <div *ngIf="!restaurant" class="no-restaurant">
+            <mat-card>
+                <mat-card-content>
+                    <h2>No Restaurant Found</h2>
+                    <p>You need to create a restaurant before you can access the dashboard.</p>
+                    <a mat-raised-button color="primary" routerLink="/admin/restaurant/new">Create Restaurant</a>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div *ngIf="restaurant" class="dashboard-content">
+            <div class="stats-cards">
+                <mat-card class="stat-card">
+                    <mat-card-content>
+                        <div class="stat-icon">
+                            <mat-icon>receipt</mat-icon>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Today's Orders</h3>
+                            <p class="stat-value">{{ todayOrders }}</p>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-card class="stat-card">
+                    <mat-card-content>
+                        <div class="stat-icon">
+                            <mat-icon>payments</mat-icon>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Today's Revenue</h3>
+                            <p class="stat-value">{{ todayRevenue | currency }}</p>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-card class="stat-card">
+                    <mat-card-content>
+                        <div class="stat-icon">
+                            <mat-icon>receipt_long</mat-icon>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Total Orders</h3>
+                            <p class="stat-value">{{ totalOrders }}</p>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-card class="stat-card">
+                    <mat-card-content>
+                        <div class="stat-icon">
+                            <mat-icon>account_balance_wallet</mat-icon>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Total Revenue</h3>
+                            <p class="stat-value">{{ totalRevenue | currency }}</p>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+
+            <div class="dashboard-sections">
+                <mat-card class="dashboard-section">
+                    <mat-card-header>
+                        <mat-card-title>Recent Orders</mat-card-title>
+                        <span class="spacer"></span>
+                        <a mat-button color="primary" routerLink="/admin/orders">View All</a>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <table mat-table [dataSource]="recentOrders" class="mat-elevation-z0">
+                            <!-- Order Number Column -->
+                            <ng-container matColumnDef="orderNumber">
+                                <th mat-header-cell *matHeaderCellDef>Order #</th>
+                                <td mat-cell *matCellDef="let order">{{ order.orderNumber }}</td>
+                            </ng-container>
+
+                            <!-- Date Column -->
+                            <ng-container matColumnDef="date">
+                                <th mat-header-cell *matHeaderCellDef>Date</th>
+                                <td mat-cell *matCellDef="let order">{{ order.createdAt | date:'short' }}</td>
+                            </ng-container>
+
+                            <!-- Type Column -->
+                            <ng-container matColumnDef="type">
+                                <th mat-header-cell *matHeaderCellDef>Type</th>
+                                <td mat-cell *matCellDef="let order">{{ order.orderType | titlecase }}</td>
+                            </ng-container>
+
+                            <!-- Status Column -->
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef>Status</th>
+                                <td mat-cell *matCellDef="let order">
+                                    <span class="status-badge" [ngClass]="order.status">{{ order.status | titlecase
+                                        }}</span>
+                                </td>
+                            </ng-container>
+
+                            <!-- Total Column -->
+                            <ng-container matColumnDef="total">
+                                <th mat-header-cell *matHeaderCellDef>Total</th>
+                                <td mat-cell *matCellDef="let order">{{ order.total | currency }}</td>
+                            </ng-container>
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef>Action</th>
+                                <td mat-cell *matCellDef="let order">
+                                    <a mat-icon-button [routerLink]="['/orders', order._id]" matTooltip="View Order">
+                                        <mat-icon>visibility</mat-icon>
+                                    </a>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row
+                                *matHeaderRowDef="['orderNumber', 'date', 'type', 'status', 'total', 'action']"></tr>
+                            <tr mat-row
+                                *matRowDef="let row; columns: ['orderNumber', 'date', 'type', 'status', 'total', 'action'];">
+                            </tr>
+                        </table>
+
+                        <div *ngIf="recentOrders.length === 0" class="no-data">
+                            <p>No recent orders found.</p>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-card class="dashboard-section">
+                    <mat-card-header>
+                        <mat-card-title>Popular Items</mat-card-title>
+                        <span class="spacer"></span>
+                        <a mat-button color="primary" routerLink="/admin/menu-items">View All</a>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <table mat-table [dataSource]="popularItems" class="mat-elevation-z0">
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef>Item</th>
+                                <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+                            </ng-container>
+
+                            <!-- Price Column -->
+                            <ng-container matColumnDef="price">
+                                <th mat-header-cell *matHeaderCellDef>Price</th>
+                                <td mat-cell *matCellDef="let item">{{ item.price | currency }}</td>
+                            </ng-container>
+
+                            <!-- Category Column -->
+                            <ng-container matColumnDef="category">
+                                <th mat-header-cell *matHeaderCellDef>Category</th>
+                                <td mat-cell *matCellDef="let item">
+                                    {{ item.category && typeof item.category !== 'string' ? item.category.name : 'N/A'
+                                    }}
+                                </td>
+                            </ng-container>
+
+                            <!-- Availability Column -->
+                            <ng-container matColumnDef="availability">
+                                <th mat-header-cell *matHeaderCellDef>Availability</th>
+                                <td mat-cell *matCellDef="let item">
+                                    <mat-icon *ngIf="item.isAvailable" color="primary">check_circle</mat-icon>
+                                    <mat-icon *ngIf="!item.isAvailable" color="warn">cancel</mat-icon>
+                                </td>
+                            </ng-container>
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef>Action</th>
+                                <td mat-cell *matCellDef="let item">
+                                    <a mat-icon-button [routerLink]="['/admin/menu-items/edit', item._id]"
+                                        matTooltip="Edit Item">
+                                        <mat-icon>edit</mat-icon>
+                                    </a>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row
+                                *matHeaderRowDef="['name', 'price', 'category', 'availability', 'action']"></tr>
+                            <tr mat-row
+                                *matRowDef="let row; columns: ['name', 'price', 'category', 'availability', 'action'];">
+                            </tr>
+                        </table>
+
+                        <div *ngIf="popularItems.length === 0" class="no-data">
+                            <p>No popular items found.</p>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="action-buttons">
+                    <a mat-raised-button color="primary" routerLink="/admin/menu-items/new">
+                        <mat-icon>add</mat-icon>
+                        Add Menu Item
+                    </a>
+                    <a mat-raised-button color="primary" routerLink="/admin/categories/new">
+                        <mat-icon>category</mat-icon>
+                        Add Category
+                    </a>
+                    <a mat-raised-button color="primary" routerLink="/admin/promo-codes/new">
+                        <mat-icon>local_offer</mat-icon>
+                        Create Promo Code
+                    </a>
+                    <a mat-raised-button color="primary" routerLink="/admin/kitchen">
+                        <mat-icon>kitchen</mat-icon>
+                        Kitchen Display
+                    </a>
+                    <a mat-raised-button color="primary" routerLink="/admin/qr-code">
+                        <mat-icon>qr_code</mat-icon>
+                        Generate QR Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
