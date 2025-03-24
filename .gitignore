@@ -139,3 +139,4 @@ frontend/package-lock.json
 
 frontend/.angular/cache
 # Sapper files
+*.pack
