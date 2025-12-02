@@ -1,0 +1,37 @@
+build_status:
+  provider: github-actions
+  workflow_name: CI
+  branch: main
+  image: https://img.shields.io/github/actions/workflow/user/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/ci.yml?label=Build&logo=github-actions&style=flat-square
+
+coverage:
+  provider: codecov
+  branch: main
+  image: https://codecov.io/github/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/branch/main/badge.svg?style=flat-square
+
+tech_stack:
+  language: javascript
+  framework: vite
+  image: https://img.shields.io/badge/TechStack-JS%7CVite-blue.svg?style=flat-square
+
+lint:
+  provider: biome
+  image: https://img.shields.io/badge/Lint%2FFormat-Biome-orange.svg?style=flat-square
+
+license:
+  image: https://img.shields.io/badge/License-CC%20BY--NC%204.0-red.svg?style=flat-square
+
+stars:
+  image: https://img.shields.io/github/stars/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility.svg?label=Star&logo=github&style=flat-square
+
+# Markdown table for README.md
+markdown:
+  - |
+    | Badge | Status |
+    | :----- | :------ |
+    | Build Status | [![Build](https://img.shields.io/github/actions/workflow/user/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/ci.yml?label=Build&logo=github-actions&style=flat-square)](https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/actions/workflows/ci.yml) |
+    | Code Coverage | [![Code Coverage](https://codecov.io/github/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/branch/main/badge.svg?style=flat-square)](https://codecov.io/github/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility) |
+    | Tech Stack | [![TechStack](https://img.shields.io/badge/TechStack-JS%7CVite-blue.svg?style=flat-square)](https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility) |
+    | Lint/Format | [![Lint/Format](https://img.shields.io/badge/Lint%2FFormat-Biome-orange.svg?style=flat-square)](https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility) |
+    | License | [![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-red.svg?style=flat-square)](https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/blob/main/LICENSE) |
+    | Stars | [![Stars](https://img.shields.io/github/stars/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility.svg?label=Star&logo=github&style=flat-square)](https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility) |
