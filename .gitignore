@@ -1,20 +1,37 @@
-# Node / Frontend Dependencies
+# General
+.DS_Store
+*.log
+
+# Node modules
+/node_modules
+/.pnpm-lock.yaml
+
+# Vite / Build output
+dist/
+.vite/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-node_modules/
-dist/
-dist-electron/
-*.local
-*.DS_Store
 
-# Vite specific
-.env
-.env.*
-!.env.example
-.nitro/
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
 
-# Build artifacts
-*.log
-*.tmp
-*.tmp-*
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
