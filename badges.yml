@@ -1,37 +1,53 @@
-build_status:
-  provider: github-actions
-  workflow_name: CI
-  branch: main
-  image: https://img.shields.io/github/actions/workflow/user/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/ci.yml?label=Build&logo=github-actions&style=flat-square
+# .github/badges.yml
+# This file centralizes the configuration for all repository badges displayed in the README.md.
+# It ensures consistency and simplifies updates. The 'flat-square' style is mandatory for a modern, professional look.
 
-coverage:
-  provider: codecov
-  branch: main
-  image: https://codecov.io/github/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/branch/main/badge.svg?style=flat-square
+badges:
+  - name: "Build Status"
+    img_url: "https://github.com/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App/actions/workflows/ci.yml/badge.svg?style=flat-square"
+    target_url: "https://github.com/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App/actions/workflows/ci.yml"
+    markdown: "[
+![Build Status](https://github.com/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App/actions/workflows/ci.yml/badge.svg?style=flat-square)
+](https://github.com/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App/actions/workflows/ci.yml)"
 
-tech_stack:
-  language: javascript
-  framework: vite
-  image: https://img.shields.io/badge/TechStack-JS%7CVite-blue.svg?style=flat-square
+  - name: "Code Coverage"
+    img_url: "https://img.shields.io/codecov/c/github/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App?style=flat-square"
+    target_url: "https://codecov.io/gh/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App"
+    markdown: "[
+![Code Coverage](https://img.shields.io/codecov/c/github/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App?style=flat-square)
+](https://codecov.io/gh/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App)"
 
-lint:
-  provider: biome
-  image: https://img.shields.io/badge/Lint%2FFormat-Biome-orange.svg?style=flat-square
+  - name: "TypeScript"
+    img_url: "https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"
+    target_url: "https://www.typescriptlang.org/"
+    markdown: "
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+"
 
-license:
-  image: https://img.shields.io/badge/License-CC%20BY--NC%204.0-red.svg?style=flat-square
+  - name: "Vite"
+    img_url: "https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white"
+    target_url: "https://vitejs.dev/"
+    markdown: "
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+"
 
-stars:
-  image: https://img.shields.io/github/stars/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility.svg?label=Star&logo=github&style=flat-square
+  - name: "Biome Linter & Formatter"
+    img_url: "https://img.shields.io/badge/lint_&_format-Biome-000000?style=flat-square&logo=biome&logoColor=white"
+    target_url: "https://biomejs.dev/"
+    markdown: "
+![Biome Linter & Formatter](https://img.shields.io/badge/lint_&_format-Biome-000000?style=flat-square&logo=biome&logoColor=white)
+"
 
-# Markdown table for README.md
-markdown:
-  - |
-    | Badge | Status |
-    | :----- | :------ |
-    | Build Status | [![Build](https://img.shields.io/github/actions/workflow/user/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/ci.yml?label=Build&logo=github-actions&style=flat-square)](https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/actions/workflows/ci.yml) |
-    | Code Coverage | [![Code Coverage](https://codecov.io/github/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/branch/main/badge.svg?style=flat-square)](https://codecov.io/github/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility) |
-    | Tech Stack | [![TechStack](https://img.shields.io/badge/TechStack-JS%7CVite-blue.svg?style=flat-square)](https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility) |
-    | Lint/Format | [![Lint/Format](https://img.shields.io/badge/Lint%2FFormat-Biome-orange.svg?style=flat-square)](https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility) |
-    | License | [![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-red.svg?style=flat-square)](https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility/blob/main/LICENSE) |
-    | Stars | [![Stars](https://img.shields.io/github/stars/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility.svg?label=Star&logo=github&style=flat-square)](https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility) |
+  - name: "License"
+    img_url: "https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg?style=flat-square"
+    target_url: "https://github.com/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App/blob/main/LICENSE"
+    markdown: "[
+![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg?style=flat-square)
+](https://github.com/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App/blob/main/LICENSE)"
+
+  - name: "GitHub Stars"
+    img_url: "https://img.shields.io/github/stars/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App?style=flat-square&logo=github"
+    target_url: "https://github.com/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App/stargazers"
+    markdown: "[
+![GitHub Stars](https://img.shields.io/github/stars/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App?style=flat-square&logo=github)
+](https://github.com/chirag127/QuantumCode-Dynamic-QR-Code-Generator-Web-App/stargazers)"
