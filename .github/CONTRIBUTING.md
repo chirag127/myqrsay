@@ -1,91 +1,94 @@
-# 🤝 Contributing to QuantumCode-Dynamic-QR-Generator-Web-Utility
+# 🤝 Contributing to QuantumCode-Dynamic-QR-Generator-Web-App
 
-As the Apex Technical Authority, we demand contributions that adhere to **Zero-Defect, High-Velocity, Future-Proof** engineering principles. This project is engineered to be a high-performance, modern standard-bearer for web utilities.
+Welcome, Architect. Your contributions are vital to maintaining the **Zero-Defect, High-Velocity, Future-Proof** standard of the QuantumCode Generator.
 
-## 1. Our Engineering Philosophy
+This project adheres strictly to the **Apex Technical Authority** standards, prioritizing TypeScript, Vite, and Feature-Sliced Design (FSD) for unparalleled frontend performance and maintainability.
 
-All contributions must respect the following core tenets, as defined in our internal `AGENTS.md`:
+## 1. The Apex Philosophy: Principles First
 
-*   **SOLID Adherence:** Ensure new code maintains high cohesion and low coupling.
-*   **DRY Principle:** Eliminate redundant logic at all costs.
-*   **YAGNI:** Only build what is currently required; avoid speculative abstraction.
-*   **TypeScript Strictness:** All JavaScript must be compiled with maximum TypeScript strictness (even if the original files are `.js`, they must pass strict analysis).
-*   **Performance Budget:** Every change must be scrutinized against its impact on generation speed and bundle size.
+Before submitting any Pull Request (PR), internalize and adhere to these core software engineering principles, as mandated by the Apex Architecture Charter:
 
-## 2. Prerequisites
+*   **SOLID:** Ensure new features or fixes strictly comply with Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion principles.
+*   **DRY (Don't Repeat Yourself):** Generic utilities must be extracted into shared layers (e.g., `shared/lib`).
+*   **YAGNI (You Ain't Gonna Need It):** Avoid speculative complexity. Implement only what is currently required.
 
-Before contributing, ensure you have the full Apex Toolchain installed and configured:
+## 2. Development Environment Setup (The Fast Path)
 
-1.  **Node.js:** Version 20 LTS or newer (for Vite/TypeScript ecosystem).
-2.  **Package Manager:** `npm` or `pnpm`.
-3.  **Git:** Configured with your correct user identity.
+We leverage the performance benefits of the modern toolchain. Ensure your local environment mirrors the CI pipeline.
 
-## 3. The Contribution Workflow
+1.  **Prerequisites:** Node.js (LTS), Git, `npm` or `pnpm`.
+2.  **Clone:**
+    bash
+    git clone https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-App.git
+    cd QuantumCode-Dynamic-QR-Generator-Web-App
+    
+3.  **Install Dependencies (Using pnpm recommended for speed):
+    bash
+    pnpm install
+    
+4.  **Verification (Linter/Formatter Check):** Before committing, ensure zero linting errors using the official formatter, **Biome**.
+    bash
+    pnpm lint
+    pnpm format:check
+    
 
-We follow a standard Fork, Branch, Commit, Pull Request workflow. **Do not push directly to `main`**.
+## 3. Contribution Workflow
 
-### Step 1: Fork and Clone
+We use a strict **Feature-Sliced Design (FSD)** structure. All new features must be introduced as new `features/` modules or layered correctly within existing ones.
 
-bash
-git clone https://github.com/chirag127/QuantumCode-Dynamic-QR-Generator-Web-Utility.git
-cd QuantumCode-Dynamic-QR-Generator-Web-Utility
+### A. Branching Strategy
 
-
-### Step 2: Create a Feature Branch
-
-Use a descriptive branch name following the convention `feat/short-description` or `fix/issue-number-description`.
-
-bash
-git checkout -b feat/implement-error-handling-strategy
-
-
-### Step 3: Local Development & Verification
-
-Implement your changes. **Crucially, run local verification steps before committing.**
+Use the `develop` branch as the integration point. Never push directly to `main`.
 
 bash
-# Install dependencies (using npm as the standard interface)
-npm install
+# Always start from the latest develop branch
+git checkout develop
+git pull origin develop
 
-# Run linter and formatter (Biome)
-npm run lint
-
-# Run unit tests (Vitest)
-npm run test:unit
-
-# Run end-to-end tests (Playwright)
-npm run test:e2e
+# Create a descriptive feature or fix branch
+git checkout -b feat/qr-style-persistence
+# OR
+git checkout -b fix/wifi-config-encoding
 
 
-If any verification step fails, your contribution will be rejected during CI validation.
+### B. Committing Standards
 
-### Step 4: Commit Messages
+All commits **MUST** follow the Conventional Commits specification (`<type>(<scope>): <description>`).
 
-Use **Conventional Commits**. All commits must be atomic and clearly describe *what* changed and *why*.
+**Valid Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `build`, `ci`.
 
-**Example:** `feat(qr-core): Introduce dynamic error correction level switching via API`
+**Example:** `feat(ui): Implement dynamic color picker for QR foreground`
 
-### Step 5: Submit a Pull Request (PR)
+### C. Verification & Testing (Vitest/Playwright)
 
-1.  Push your branch to your fork: `git push origin feat/my-change`.
-2.  Navigate to the main repository on GitHub and open a new Pull Request against the `main` branch.
-3.  **Mandatory:** Fill out the **Pull Request Template** (`.github/PULL_REQUEST_TEMPLATE.md`) completely. This ensures all context (Architectural impact, Testing evidence, Agent Alignment check) is provided to reviewers.
+Every new functional change or bug fix requires associated automated testing.
 
-## 4. Code Style and Tooling Enforcement
+*   **Unit/Integration Tests:** Add/update tests in the corresponding `__tests__` directory using **Vitest**.
+    bash
+    pnpm test:unit
+    
+*   **E2E Tests:** For significant user flows, add or update E2E validation using **Playwright**.
+    bash
+    pnpm test:e2e
+    
 
-To ensure consistency and maintain the high standard required by the Apex Authority, all code is automatically checked and formatted by the following tools:
+## 4. Pull Request (PR) Requirements
 
-*   **Linter/Formatter:** [Biome](https://biomejs.dev/) (Enforces speed and correctness).
-*   **Testing:** [Vitest](https://vitest.dev/) (Unit) and [Playwright](https://playwright.dev/) (E2E).
-*   **Bundler:** [Vite](https://vitejs.dev/).
+All PRs must pass automated checks before a human reviewer will look at them.
 
-If you introduce new dependencies, ensure they are listed in `package.json` and that they comply with modern ECMAScript standards and have low supply chain risk.
+1.  **PR Template:** Fill out the provided `.github/PULL_REQUEST_TEMPLATE.md` completely.
+2.  **Self-Review:** Verify your code against the **AGENTS.md** directives.
+3.  **Build & Test Locally:** Ensure all local tests pass (`pnpm test`).
+4.  **CI Green:** Ensure the GitHub Actions CI pipeline (`.github/workflows/ci.yml`) runs completely green *before* requesting a review.
+5.  **Scope Management:** Keep PRs atomic. A single PR should address one concern (one feature or one fix).
 
-## 5. Reporting Issues and Security
+## 5. Reporting Issues and Security Vulnerabilities
 
-*   **Bugs:** Please report all bugs using the official [Bug Report Template](./.github/ISSUE_TEMPLATE/bug_report.md).
-*   **Security:** Any suspected vulnerability must be reported privately via the [Security Policy](./.github/SECURITY.md) before public disclosure.
+### A. Bug Reports
+Use the provided template at `.github/ISSUE_TEMPLATE/bug_report.md`. Be specific, provide steps to reproduce, and include environment details.
 
---- 
+### B. Security Vulnerabilities
 
-*Thank you for investing time in ensuring `QuantumCode-Dynamic-QR-Generator-Web-Utility` remains a high-quality, future-proof asset.*
+If you discover a security vulnerability, **DO NOT** report it publicly. Follow the strict protocol outlined in **SECURITY.md** to report privately to `security@chirag127.io`.
+
+*   *Refer to the **SECURITY.md** file for the detailed disclosure policy.*
